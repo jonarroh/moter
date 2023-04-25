@@ -2,8 +2,10 @@ import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
 import { Button } from "flowbite-react";
 import { type NextPage } from "next";
 import Head from "next/head";
+import { api } from "~/utils/api";
 
 const Home: NextPage = () => {
+  const { data } = api.post.getAll.useQuery();
   const user = useUser();
 
   return (
@@ -28,9 +30,22 @@ const Home: NextPage = () => {
           )}
           {user.isSignedIn && (
             <div>
+              <div>
+                {user.user?.profileImageUrl && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={user.user?.profileImageUrl}
+                    alt="profile"
+                    className="h-20 w-20 rounded-full"
+                  />
+                )}
+              </div>
               <SignOutButton>
                 <Button color="purple">Logout</Button>
               </SignOutButton>
+              {data?.map((post) => (
+                <div key={post.id}>{post.content}</div>
+              ))}
             </div>
           )}
         </div>
