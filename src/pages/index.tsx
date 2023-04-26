@@ -2,6 +2,7 @@ import { SignUpButton, useUser } from "@clerk/nextjs";
 import { Button } from "flowbite-react";
 import { type NextPage } from "next";
 import Head from "next/head";
+import CreatePost from "~/components/UI/CreatePost";
 import Nav from "~/components/UI/Nav";
 import PostList from "~/components/UI/PostList";
 
@@ -28,6 +29,7 @@ const Home: NextPage = () => {
             <Button>Sign up</Button>
           </SignUpButton>
         )}
+        <CreatePost />
         <PostList />
       </main>
     </>

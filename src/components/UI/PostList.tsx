@@ -1,11 +1,12 @@
 import { api } from "~/utils/api";
 import { type RouterOutputs } from "~/utils/api";
+import LoadingSpinner from "./LoadingSpinner";
 
 type PostWithAutor = RouterOutputs["post"]["getAll"][number];
 const RenderPost = (props: PostWithAutor) => {
   const { post } = props;
   return (
-    <li key={post.authorId}>
+    <li key={post.authorId} className="text-white">
       <h2>{post.autorName}</h2>
       <p>{post.content}</p>
     </li>
@@ -15,7 +16,7 @@ const RenderPost = (props: PostWithAutor) => {
 function PostList() {
   const { data, isLoading } = api.post.getAll.useQuery();
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <LoadingSpinner />;
 
   if (!data) return <div>Something went wrong</div>;
   return (
