@@ -2,6 +2,7 @@ import { useUser } from "@clerk/nextjs";
 import { Button, Label, TextInput } from "flowbite-react";
 import { useRef } from "react";
 import { api } from "~/utils/api";
+import { toast } from "react-hot-toast";
 
 function CreatePost() {
   const { user } = useUser();
@@ -12,6 +13,9 @@ function CreatePost() {
         inputValue.current.value = "";
       }
       void ctx.post.getAll.invalidate();
+    },
+    onError: () => {
+      toast.error("Something went wrong 😢");
     },
   });
   const inputValue = useRef<HTMLInputElement>(null);
