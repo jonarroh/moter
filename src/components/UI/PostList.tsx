@@ -4,9 +4,18 @@ import LoadingSpinner from "./LoadingSpinner";
 
 type PostWithAutor = RouterOutputs["post"]["getAll"][number];
 const RenderPost = (props: PostWithAutor) => {
-  const { post } = props;
+  const { post, author } = props;
+
   return (
-    <li key={post.authorId} className="text-white">
+    <li
+      key={post.authorId}
+      className="flex flex-row items-center py-3 text-white"
+    >
+      <img
+        src={author.profilePhotoUrl}
+        alt="profile image"
+        className="me-2 w-10 rounded-full"
+      />
       <h2>{post.autorName}</h2>
       <p>{post.content}</p>
     </li>

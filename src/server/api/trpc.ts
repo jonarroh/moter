@@ -28,11 +28,14 @@ export const createTRPCContext = (opts: CreateNextContextOptions) => {
   const { req } = opts;
   const sesh = getAuth(req);
 
-  const userId = sesh.userId;
+  const user = {
+    userId: sesh?.userId,
+    pictureProfileUrl: sesh?.user?.profileImageUrl,
+  };
 
   return {
     prisma,
-    userId,
+    user,
   };
 };
 
@@ -86,14 +89,14 @@ export const createTRPCRouter = t.router;
 export const publicProcedure = t.procedure;
 
 const enforcedUserIsAuthenticated = t.middleware(async ({ ctx, next }) => {
-  if (!ctx.userId) {
+  if (!ctx.user.userId) {
     throw new TRPCError({
       code: "UNAUTHORIZED",
     });
   }
   return next({
     ctx: {
-      userId: ctx.userId,
+      userId: ctx.user.userId,
     },
   });
 });

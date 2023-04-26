@@ -29,8 +29,12 @@ const Home: NextPage = () => {
             <Button>Sign up</Button>
           </SignUpButton>
         )}
-        <CreatePost />
-        <PostList />
+        {user.isSignedIn && (
+          <>
+            <CreatePost />
+            <PostList />
+          </>
+        )}
       </main>
     </>
   );
