@@ -31,15 +31,11 @@ function CreatePost() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center py-2">
-      <Label
-        htmlFor="small"
-        className="mb-2 text-2xl font-bold text-white"
-        value={`Que piensas hoy ${user.firstName ?? ""}?`}
-      />
+    <div className="flex flex-row items-center justify-center py-2">
       <TextInput
         id="small"
         type="text"
+        placeholder="¿Qué estás pensando?"
         sizing="sm"
         ref={inputValue}
         disabled={isLoading}

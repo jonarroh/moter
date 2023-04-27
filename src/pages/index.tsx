@@ -23,18 +23,22 @@ const Home: NextPage = () => {
         />
       )}
       <main className="flex min-h-screen flex-col items-center  bg-gradient-to-b from-[#2e026d] to-[#15162c]">
-        <h1 className="text-6xl text-white">Hola {user.user?.firstName}</h1>
-        {!user.isSignedIn && (
-          <SignUpButton mode="modal">
-            <Button>Sign up</Button>
-          </SignUpButton>
-        )}
-        {user.isSignedIn && (
-          <>
-            <CreatePost />
-            <PostList />
-          </>
-        )}
+        <div className="flex flex-row items-center justify-center gap-8 py-2">
+          <h1 className="text-6xl text-white sm:text-2xl">
+            Hola {user.user?.firstName}
+          </h1>
+          {!user.isSignedIn && (
+            <SignUpButton mode="modal">
+              <Button>Sign up</Button>
+            </SignUpButton>
+          )}
+          {user.isSignedIn && (
+            <>
+              <CreatePost />
+            </>
+          )}
+        </div>
+        <PostList />
       </main>
     </>
   );
