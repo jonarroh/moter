@@ -1,5 +1,6 @@
 import { type NextPage } from "next";
 import { useRouter } from "next/router";
+import LayoutMain from "~/components/Layouts/LayoutMain";
 import LoadingSpinner from "~/components/UI/LoadingSpinner";
 import { api } from "~/utils/api";
 
@@ -17,12 +18,21 @@ const Id: NextPage = () => {
 
   return (
     <>
-      <p>mensaje del usuario {slug}</p>
-      {data.map((post) => (
-        <li key={post.post.id}>
-          <p>{post.post.content}</p>
-        </li>
-      ))}
+      <LayoutMain>
+        {data.map((post) => (
+          <li key={post.post.id} className="list-none text-white">
+            <div className="flex flex-row items-center py-3">
+              <img
+                src={post.author.profilePhotoUrl}
+                alt="profile image"
+                className="me-2 w-10 rounded-full"
+              />
+              <h2 className="mx-2">{post.post.autorName}</h2>
+              <p>{post.post.content}</p>
+            </div>
+          </li>
+        ))}
+      </LayoutMain>
     </>
   );
 };
