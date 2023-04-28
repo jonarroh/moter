@@ -1,5 +1,5 @@
 import { useUser } from "@clerk/nextjs";
-import { Button, Label, TextInput } from "flowbite-react";
+import { Button, TextInput } from "flowbite-react";
 import { useRef } from "react";
 import { api } from "~/utils/api";
 import { toast } from "react-hot-toast";
@@ -24,8 +24,10 @@ function CreatePost() {
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
       if (!inputValue.current?.value) return;
+      if (!user.firstName) return;
       mutate({
         content: inputValue.current.value,
+        authorName: user.firstName,
       });
     }
   };
@@ -48,6 +50,7 @@ function CreatePost() {
         onClick={() =>
           mutate({
             content: inputValue.current?.value ?? "",
+            authorName: user.firstName ?? "",
           })
         }
       >

@@ -64,10 +64,51 @@ export const postRouter = createTRPCRouter({
     });
   }),
 
+  getByPostUserNames: publicProcedure
+    .input(
+      z.object({
+        authorName: z.string().min(1).max(280),
+      })
+    )
+    .query(async ({ ctx, input }) => {
+      const post = await ctx.prisma.post.findMany({
+        where: {
+          autorName: input.authorName,
+        },
+        take: 100,
+        orderBy: [
+          {
+            createdAt: "desc",
+          },
+        ],
+      });
+      const users = (
+        await clerkClient.users.getUserList({
+          userId: post.map((post) => post.authorId),
+          limit: 100,
+        })
+      ).map(filterUserForClient);
+
+      return post.map((post) => {
+        const author = users.find((user) => user.id === post.authorId);
+        if (!author)
+          throw new TRPCError({
+            code: "INTERNAL_SERVER_ERROR",
+            message: "Author not found",
+          });
+
+        return {
+          post,
+          author,
+        };
+      });
+    }),
+
   create: privateProcedure
     .input(
       z.object({
         content: z.string().min(1).max(280),
+        authorName: z.string().min(1).max(280),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -83,7 +124,7 @@ export const postRouter = createTRPCRouter({
         data: {
           content: input.content,
           authorId,
-          autorName: "",
+          autorName: input.authorName,
         },
       });
       return post;
