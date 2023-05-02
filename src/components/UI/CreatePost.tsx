@@ -33,10 +33,11 @@ function CreatePost() {
   };
 
   return (
-    <div className="flex flex-row items-center justify-center py-2">
+    <div className="flex w-2/5 flex-row items-center justify-between py-2">
       <TextInput
         id="small"
         type="text"
+        className="w-full"
         placeholder="¿Qué estás pensando?"
         sizing="sm"
         ref={inputValue}
@@ -44,18 +45,21 @@ function CreatePost() {
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         onKeyDown={(event) => handleKeyDown(event)}
       />
-      <Button
-        outline={true}
-        gradientDuoTone="purpleToBlue"
-        onClick={() =>
-          mutate({
-            content: inputValue.current?.value ?? "",
-            authorName: user.firstName ?? "",
-          })
-        }
-      >
-        Publicar
-      </Button>
+      <div>
+        <Button
+          outline={true}
+          size="sm"
+          gradientDuoTone="purpleToBlue"
+          onClick={() =>
+            mutate({
+              content: inputValue.current?.value ?? "",
+              authorName: user.firstName ?? "",
+            })
+          }
+        >
+          Publicar
+        </Button>
+      </div>
     </div>
   );
 }

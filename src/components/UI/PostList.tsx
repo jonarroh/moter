@@ -10,7 +10,7 @@ const RenderPost = (props: PostWithAutor) => {
   return (
     <li
       key={post.authorId}
-      className="flex flex-row items-center py-3 text-white"
+      className=" my-1 flex w-9/12 flex-row items-center border border-neutral-100 px-4 py-3 text-white"
     >
       <Link href={`/@${post.autorName ?? ""}`}>
         <img
@@ -22,7 +22,9 @@ const RenderPost = (props: PostWithAutor) => {
       <Link href={`/@${post.autorName ?? ""}`}>
         <h2 className="mx-2">{post.autorName}</h2>
       </Link>
-      <p>{post.content}</p>
+      <div>
+        <p>{post.content}</p>
+      </div>
     </li>
   );
 };
@@ -35,7 +37,7 @@ function PostList() {
   if (!data) return <div>Something went wrong</div>;
   return (
     <>
-      <ul>
+      <ul className="flex w-2/4 flex-col items-center justify-center  ">
         {data.map((fullPost) => (
           <RenderPost {...fullPost} key={fullPost.post.id} />
         ))}

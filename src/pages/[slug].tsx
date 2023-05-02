@@ -20,7 +20,10 @@ const Id: NextPage = () => {
     <>
       <LayoutMain>
         {data.map((post) => (
-          <li key={post.post.id} className="list-none text-white">
+          <li
+            key={post.post.id}
+            className="my-1  flex w-9/12 list-none flex-row items-center border px-4 py-3 text-white"
+          >
             <div className="flex flex-row items-center py-3">
               <img
                 src={post.author.profilePhotoUrl}
